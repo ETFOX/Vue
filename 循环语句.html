@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>循环语句</title>
+		<script src="js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+		  <p>=================</p>
+		  <ol>
+		    <li v-for="site in sites">
+		      {{ site.name }}
+		    </li>
+		  </ol>
+		  <p>=================</p>
+		  <template v-for="site in sites">
+		    <li>{{ site.name }}</li>
+		    <li>--------------</li>
+	      </template>
+		  <p>=================</p>
+		  <ul>
+		    <li v-for="value in object">
+		    {{ value }}
+		    </li>
+		    <p>=================</p>
+		    <li>你也可以提供第二个参数，key</li>
+		    <li v-for="(value, key) in object">
+		    {{ key }} : {{ value }}
+		    </li>
+		    <p>=================</p>
+		    <li>你也可以提供第三个参数，index</li>
+		    <li v-for="(value, key, index) in object">
+		    {{ key }} : {{ value }},{{index}}
+		    </li>
+		  </ul>
+		  <p>=================</p>
+		  <p>迭代整数</p>
+		  <ul>
+		    <li v-for="n in 10">
+		     {{ n }}
+		    </li>
+		  </ul>
+		</div>
+		<script>
+		new Vue({
+		  el: '#app',
+		  data: {
+		    sites: [
+		      { name: 'PANGU' },
+		      { name: 'ETFOX' },
+		      { name: 'ALIBABA' }
+		    ],
+		    object:{
+		    		comp:'pangu',
+		    		auth:'etfox',
+		    		relation:'friend'
+		    }
+		  }
+		})
+		</script>
+	</body>
+</html>

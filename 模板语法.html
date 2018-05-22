@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>模板语法</title>
+	<script src="js/vue.js"></script>
+</head>
+<style>
+.etfox_class{
+  background: #444;
+  color: #eee;
+}
+</style>
+<body>
+	<div id="app">
+		最常用的：
+		<font>{{ message }}</font>
+		<br /> 使用 v-html 指令输出：
+		<div v-html="message"></div>
+	</div>
+
+	<div id="con">
+		<label for="r1">修改颜色</label><input type="checkbox" v-model="etfox" id="r1">
+		<br><br>
+		<div v-bind:class="{'etfox_class': etfox}">
+			directiva v-bind:class
+		</div><br /><br />
+		<div :class="{'etfox_class': etfox}">
+			v-bind 缩写
+		</div>
+	</div>
+	<br />
+	<div id="con1">
+		{{5+5}}<br>
+	    {{ ok ? 'YES' : 'NO' }}<br>
+	    {{ message.split('').reverse().join('-') }}
+	    //接受值的是常量使用''修饰
+	    <div v-bind:id="'list-' + id">v-bind 用于响应式更新 HTML 属性</div>
+	    <br />
+	    <p v-if="seen">现在你看到我了[v-if 指令]</p>
+		<a v-on:click="doSomething"> click me</a>
+	</div>
+	
+	<script>
+	//最常用的{{ }}
+	new Vue({
+		el: "#app",
+		data: {
+			message: "etfox"
+		}
+	});
+
+	//v-bind指令
+	new Vue({
+		el: "#con",
+		data: {
+			etfox: true,
+			ok: true,
+    			id : 1
+		}
+	});
+
+	//v-bind指令
+	new Vue({
+		el: "#con1",
+		data: {
+			message: "etfox",
+			ok: true,
+    			id : 1,
+			seen: true
+		},
+		methods:{
+			doSomething: function(){
+				alert("v-on 用于监听 DOM 事件");
+			}
+		}
+	});
+
+	var data = { //用于定义属性
+		site: "Vue 起步",
+		url: "www.etfox.cn",
+		alexa: "10000"
+	};
+</script>
+</body>
+</html>

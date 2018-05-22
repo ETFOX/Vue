@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Vue 过滤器</title>
+		<script src="js/vue.js"></script>
+	</head>
+
+	<body>
+		<div id="app">
+			{{ message | capitalize | capitalize1("尾巴") }}
+			<p>过滤器函数接受表达式的值作为第一个参数。</p>
+		</div>
+
+		<script>
+			new Vue({
+				el: '#app',
+				data: {
+					message: 'etfox'
+				},
+				filters: {
+					capitalize: function(value) {
+						if(!value) return ''
+						value = value.toString()
+						return value.charAt(0).toUpperCase() + value.slice(1)
+					},
+					capitalize1: function(value,ap) {
+						return value+ap;
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>

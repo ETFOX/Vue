@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>条件判断</title>
+		<script src="js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+		    <p>=================</p>
+		    <p v-if="seen">现在你看到我了</p>
+		    <template v-if="ok">
+		      <h1>etfox</h1>
+		    </template>
+		    <p>=================</p>
+		    <div v-if="Math.random() > 0.5">
+		      Sorry
+		    </div>
+		    <div v-else>
+		      Not sorry
+		    </div>
+		    <br />
+		    <p>=================</p>
+		    <div v-if="type === 'A'">
+		      A
+		    </div>
+		    <div v-else-if="type === 'B'">
+		      B
+		    </div>
+		    <div v-else-if="type === 'C'">
+		      C
+		    </div>
+		    <div v-else>
+		      Not A/B/C
+		    </div>
+		    <p>=================</p>
+		    <p v-show="ok">我们也可以使用 v-show 指令来根据条件展示元素：</p>
+		    <h1 v-show="ok">Hello!</h1>
+		</div>
+		    
+		<script>
+		new Vue({
+		  el: '#app',
+		  data: {
+		    seen: true,
+		    ok: true,
+		    type: 'A'
+		  }
+		})
+		</script>
+	</body>
+</html>

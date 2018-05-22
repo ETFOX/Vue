@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>计算属性</title>
+		<script src="js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<p>=================</p>
+		  	{{ message.split('').reverse().join('') }}
+		  	<p>=================</p>
+		  	<p>原始字符串: {{ message }}</p>
+  		  	<p>计算后反转字符串: {{ reversedMessage }}</p>
+  		  	<p>计算后反转字符串: {{ reversedMessage2() }}</p>
+  		  	<p>=================</p>
+  		  	<input v-model="message">
+  		  	<p>我们可以使用 methods 来替代 computed，效果上两个都是一样的，
+  		  		但是 computed 是基于它的依赖缓存，只有相关依赖发生改变时才会重新取值。
+  		  		而使用 methods ，在重新渲染的时候，函数总会重新调用执行。</p>
+  		  	<p>=================</p>
+  		  	<p>computed 属性默认只有 getter ，不过在需要时你也可以提供一个 setter ：</p>
+  		  	<p>{{ site }}</p>
+		</div>
+		
+		<script>
+			var vm = new Vue({
+			  el: '#app',
+			  data: {
+			    message: 'etfox!',
+			    name: 'Google',
+				url: 'http://www.google.com'
+			  },
+			  methods:{
+			  	 reversedMessage2: function () {
+			      return this.message.split('').reverse().join('')
+			    }
+			  },
+			  computed: {
+			    // 计算属性的 getter
+			    reversedMessage: function () {
+			      // `this` 指向 vm 实例
+			      return this.message.split('').reverse().join('')
+			    },
+			    
+			    site: {
+			      // getter
+			      get: function () {
+			        return this.name + ' ' + this.url
+			      },
+			      // setter
+			      set: function (newValue) {
+			        var names = newValue.split(' ')
+			        this.name = names[0]
+			        this.url = names[names.length - 1]
+			      }
+			  }
+			 }
+			});
+			
+			// 调用 setter， vm.name 和 vm.url 也会被对应更新
+			vm.site = 'etfox http://www.etfox.com';
+			document.write('name: ' + vm.name);
+			document.write('<br>');
+			document.write('url: ' + vm.url);
+		</script>
+	</body>
+</html>
