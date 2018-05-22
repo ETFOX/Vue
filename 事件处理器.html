@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>事件处理器</title>
+		<script src="js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+		  <button v-on:click="counter += 1">增加 1</button>
+		  <p>这个按钮被点击了 {{ counter }} 次。</p>
+		  <button v-on:click="greet">按钮</button>
+		  <button v-on:click="say('hi')">内联</button>
+		  
+		  <p>
+		  	事件修饰符
+		  </p>
+		  <pre class="prettyprint prettyprinted" style=""><span class="com">&lt;!-- 阻止单击事件冒泡 --&gt;</span><span class="pln">
+</span><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">v-on:click</span><span class="pln">.</span><span class="atn">stop</span><span class="pun">=</span><span class="atv">"doThis"</span><span class="tag">&gt;&lt;/a&gt;</span><span class="pln">
+</span><span class="com">&lt;!-- 提交事件不再重载页面 --&gt;</span><span class="pln">
+</span><span class="tag">&lt;form</span><span class="pln"> </span><span class="atn">v-on:submit</span><span class="pln">.</span><span class="atn">prevent</span><span class="pun">=</span><span class="atv">"onSubmit"</span><span class="tag">&gt;&lt;/form&gt;</span><span class="pln">
+</span><span class="com">&lt;!-- 修饰符可以串联  --&gt;</span><span class="pln">
+</span><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">v-on:click</span><span class="pln">.</span><span class="atn">stop</span><span class="pln">.</span><span class="atn">prevent</span><span class="pun">=</span><span class="atv">"doThat"</span><span class="tag">&gt;&lt;/a&gt;</span><span class="pln">
+</span><span class="com">&lt;!-- 只有修饰符 --&gt;</span><span class="pln">
+</span><span class="tag">&lt;form</span><span class="pln"> </span><span class="atn">v-on:submit</span><span class="pln">.</span><span class="atn">prevent</span><span class="tag">&gt;&lt;/form&gt;</span><span class="pln">
+</span><span class="com">&lt;!-- 添加事件侦听器时使用事件捕获模式 --&gt;</span><span class="pln">
+</span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">v-on:click</span><span class="pln">.</span><span class="atn">capture</span><span class="pun">=</span><span class="atv">"doThis"</span><span class="tag">&gt;</span><span class="pln">...</span><span class="tag">&lt;/div&gt;</span><span class="pln">
+</span><span class="com">&lt;!-- 只当事件在该元素本身（而不是子元素）触发时触发回调 --&gt;</span><span class="pln">
+</span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">v-on:click</span><span class="pln">.</span><span class="atn">self</span><span class="pun">=</span><span class="atv">"doThat"</span><span class="tag">&gt;</span><span class="pln">...</span><span class="tag">&lt;/div&gt;</span><span class="pln">
+
+</span><span class="com">&lt;!-- click 事件只能点击一次，2.1.4版本新增 --&gt;</span><span class="pln">
+</span><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">v-on:click</span><span class="pln">.</span><span class="atn">once</span><span class="pun">=</span><span class="atv">"</span><span class="pln">doThis</span><span class="atv">"</span><span class="tag">&gt;&lt;/a&gt;</span></pre>
+
+
+			<p>
+				按键修饰符
+			</p>
+			<p>
+				v-on:keyup.13="submit" //只有在keycode=13才触发
+			</p>
+			<input @keyup.enter="greet">
+			<p>
+				全部的按键别名：<br />
+				.enter<br />
+				.tab<br />
+				.delete (捕获 "删除" 和 "退格" 键)<br />
+				.esc<br />
+				.space<br />
+				.up<br />
+				.down<br />
+				.left<br />
+				.right<br />
+				.ctrl<br />
+				.alt<br />
+				.shift<br />
+				.meta<br />
+			</p>
+		</div>
+		
+		<script>
+			new Vue({
+			  el: '#app',
+			  data: {
+			    counter: 0,
+			    name: 'Vue.js'
+			  },
+			  // 在 `methods` 对象中定义方法
+			  methods: {
+			    greet: function (event) {
+			      // `this` 在方法里指当前 Vue 实例
+			      alert('Hello ' + this.name + '!')
+			      // `event` 是原生 DOM 事件
+				  if (event) {
+					  alert(event.target.tagName)
+				  }
+			    },
+			    say: function (message) {
+			      alert(message)
+			    }
+			  }
+			});
+			
+			// 也可以用 JavaScript 直接调用方法
+			app.greet() // -> 'Hello Vue.js!'
+		</script>
+	</body>
+</html>
