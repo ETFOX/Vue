@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>样式绑定</title>
+		<script src="js/vue.js"></script>
+	</head>
+	<style>
+		.active {
+			width: 100px;
+			height: 100px;
+			background: green;
+		}
+		.text-danger {
+			width: 100px;
+			height: 100px;
+			background: red;
+		}
+		.sea {
+			width: 100px;
+			height: 100px;
+			background: burlywood;
+		}
+	</style>
+	<body>
+		<p>
+			class 与 style 是 HTML 元素的属性，用于设置元素的样式，我们可以用 v-bind 来设置样式属性。
+Vue.js v-bind 在处理 class 和 style 时， 专门增强了它。表达式的结果类型除了字符串之外，还可以是对象或数组。
+		</p>
+		<p>===============</p>
+		<div id="app">
+		  <div v-bind:class="{ 'active': isActive}"></div>
+		  <div v-bind:class="{ 'active': isActive, 'text-danger': hasError }">绑定多个数据</div>
+		  <div v-bind:class="classObject">绑定对象</div>
+		  <div v-bind:class="classObject1">绑定计算属性</div>
+		  <div v-bind:class="[activeClass, errorClass]">数组语法</div>
+		  <div v-bind:class="[errorClass ,isActive ? classObject : '']">三元表达式</div>
+		</div>
+		
+		<script>
+			new Vue({
+			  el: '#app',
+			  data: {
+			    isActive: true,
+				hasError: true,
+  				error: null,
+				classObject: {
+			      'text-danger': true,
+			      'sea': true
+			   },
+			   activeClass: 'active',
+    			   errorClass: 'text-danger',
+    			   isActive: true
+			  },
+				computed: {
+				   	classObject1: function () {
+				      return {
+				        active: this.isActive && !this.error,
+				        'text-danger': this.error && this.error.type === 'fatal',
+				      }
+				    }
+				}
+			})
+		</script>
+	</body>
+</html>

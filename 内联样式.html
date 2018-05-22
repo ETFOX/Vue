@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>内联样式</title>
+		<script src="js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">etfox[属性绑定]</div>
+			<div v-bind:style="styleObject">pangu[对象绑定]</div>
+			<div v-bind:style="[baseStyles, overridingStyles]">@ETFOX[数组绑定]</div>
+		</div>
+		
+		<script>
+			new Vue({
+			  el: '#app',
+			  data: {
+			    activeColor: 'orange',
+				fontSize: 30,
+				styleObject: {
+			      color: 'blue',
+			      fontSize: '50px'
+			   },baseStyles: {
+			      color: 'red',
+			      fontSize: '30px'
+			    },
+				overridingStyles: {
+			      'font-weight': 'bold'
+			    }
+			  }
+			})
+		</script>
+	</body>
+</html>
