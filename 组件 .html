@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>组件</title>
+		<script src="js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<etfox></etfox>
+			<pangu></pangu>
+			<child message="盘古"></child>
+			<p style="color: #FF0000;">动态 Prop：</p>
+			<child v-bind:message="pg"></child>
+			<ol>
+		    		<todo-item v-for="item in sites" v-bind:todo="item"></todo-item>
+		  	</ol>
+		  	<p>{{ total }}</p>
+		      <button-counter v-on:increment="incrementTotal"></button-counter>
+		      <button-counter v-on:increment="incrementTotal"></button-counter>
+		</div>
+		<script>
+			// 注册
+			Vue.component('etfox', {
+				template: '<h1>自定义全局组件!</h1>'
+			})
+			var Child = {
+			  template: '<h1>自定义局部组件!</h1>'
+			}
+			
+			
+			// 注册
+			Vue.component('child', {
+			  // 声明 props: 是父组件用来传递数据的一个自定义属性
+			  props: ['message'],
+			  // 同样也可以在 vm 实例中像 "this.message" 这样使用
+			  template: '<span>{{ message }}</span>'
+			})
+			
+			Vue.component('todo-item', {
+			  props: ['todo'],
+			  template: '<li>{{ todo.text }}</li>'
+			})
+			
+			Vue.component('button-counter', {
+			  template: '<button v-on:click="incrementHandler">{{ counter }}</button>',
+			  data: function () {
+			    return {
+			      counter: 0
+			    }
+			  },
+			  methods: {
+			    incrementHandler: function () {
+			      this.counter += 1
+			      this.$emit('increment')
+			    }
+			  },
+			})
+			// 创建根实例
+			new Vue({
+				el: '#app',
+				data: {
+					pg: "我本非世俗人",
+					sites: [
+				      { text: 'Baidu' },
+				      { text: 'Google' },
+				      { text: 'Taobao' }
+				    ],
+				    total: 0
+				},
+				methods:{
+					incrementTotal: function () {
+				      this.total += 1
+				    }
+				},
+			  	components: {
+				    // <pangu> 将只在父模板可用
+				    'pangu': Child
+			  	}
+			})
+		</script>
+	</body>
+</html>

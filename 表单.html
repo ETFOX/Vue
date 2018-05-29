@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>表单</title>
+		<script src="js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+		  <h5>v-model 会根据控件类型自动选取正确的方法来更新元素。</h5>
+		  <p>input 元素：</p>
+		  <input v-model="message" placeholder="编辑我……">
+		  <p>消息是: {{ message }}</p>
+		  
+		  <p>textarea 元素：</p>
+		  <p style="white-space: pre">{{ message2 }}</p>
+		  <textarea v-model="message2" placeholder="多行文本输入……"></textarea>
+		</div>
+		
+		<div id="app1">
+		  <h5>复选框如果是一个为逻辑值，如果是多个则绑定到同一个数组。</h5>
+		  <p>单个复选框：</p>
+		  <input type="checkbox" id="checkbox" v-model="checked">
+		  <label for="checkbox">{{ checked }}</label>
+		  <p>全选：</p>
+		  <input type="checkbox" id="select_All" v-model="select_All" @change="selectAll">
+		  <label for="select_All">{{ select_All }}</label>
+		  <p>多个复选框：</p>
+		  <input type="checkbox" id="baidu" value="Baidu" v-model="checkedNames">
+		  <label for="baidu">baidu</label>
+		  <input type="checkbox" id="jingdong" value="Jingdong" v-model="checkedNames">
+		  <label for="jingdong">jingdong</label>
+		  <input type="checkbox" id="taobao" value="Taobao" v-model="checkedNames">
+		  <label for="taobao">taobao</label>
+		  <br>
+		  <span>选择的值为: {{ checkedNames }}</span>
+		</div>
+		
+		<div id="app2">
+		  <h5>下拉列表的双向数据绑定：</h5>
+		  <select v-model="selected" name="fruit">
+		    <option value="">选择一个网站</option>
+		    <option value="www.etfox.com">Etfox</option>
+		    <option value="www.google.com">Google</option>
+		  </select>
+		 
+		  <div id="output">
+		      选择的网站是: {{selected}}
+		  </div>
+		</div>
+		<div id="app3">
+			<h5>在默认情况下， v-model 在 input 事件中同步输入框的值与数据，但你可以添加一个修饰符 lazy ，从而转变为在 change 事件中同步：</h5>
+			<!-- 在 "change" 而不是 "input" 事件中更新 -->
+			<input v-model.lazy="msg" >
+			<div>
+				{{msg}}
+				<h1>
+					最美的风景是你的笑容.
+				</h1>
+			</div>
+			<input v-model.number="age" type="number">
+			<div>
+				change：<p>{{age}}</p>
+			</div>
+			<h5>如果要自动过滤用户输入的首尾空格，可以添加 trim 修饰符到 v-model 上过滤输入</h5>
+			<input v-model.trim="msg">
+			<div>
+				trim：<p>{{msg}}</p>
+			</div>
+		</div>
+		<script>
+			new Vue({
+			  el: '#app',
+			  data: {
+			    message: 'etfox',
+			    message2: 'pangu\r\nhttp://www.etfox.com'
+			  }
+			});
+			
+			new Vue({
+				el: "#app1",
+				data: {
+					checked: false,
+					select_All: false,
+					checkedNames:["Baidu"],
+					checkedArr: ["Baidu", "Jingdong", "Taobao"]
+				},
+				methods: {
+					selectAll:function(){
+						if(this.select_All){
+							this.checkedNames = this.checkedArr
+						}else{
+							this.checkedNames = []
+						}
+					}
+				}
+			});
+			
+			new Vue({
+				el: "#app2",
+				data: {
+					selected: "www.etfox.com"
+				}
+			});
+			
+			new Vue({
+				el:"#app3",
+				data:{
+					age: 1,
+					msg: "怀恋啊我们的青春啊"
+				}
+			})
+		</script>
+	</body>
+</html>

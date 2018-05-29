@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>组件</title>
+		<script src="js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<p>带驼峰命名的需要转换</p>
+			<example v-bind:prop-Ssss-Ssss="e_num" v-bind:prop-c="etf"></example>
+		</div>
+		<script>
+			Vue.component('example', {
+			  props: {
+			    // 基础类型检测 （`null` 意思是任何类型都可以）
+			    propSsssSsss: {
+			    		type: Number
+			    },
+			    // 必传且是字符串
+			    propC: {
+			      type: String
+			    }
+			  },
+			  template: '<div><h5>{{title}}</h5>'+
+			  	'<span>{{ propSsssSsss }}</span>-<span>{{propC}}</span></div>',
+			  data(){
+			     return { title: 'ETFOX' }
+			  }
+			});
+			
+			
+			// 创建根实例
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					etf: '盘古',
+					e_num: 8888
+				}
+			});
+		</script>
+	</body>
+</html>
